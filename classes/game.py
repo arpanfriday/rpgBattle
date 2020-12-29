@@ -13,7 +13,7 @@ class bcolors:
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic):
+    def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -22,15 +22,11 @@ class Person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
-        self.action = ["Attack", "Magic"]
+        self.items = items
+        self.action = ["Attack", "Magic", 'Items']
 
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
-
-    # def generate_spell_damage(self, i):
-    #     mgl = self.magic[i]["dmg"] - 5
-    #     mgh = self.magic[i]["dmg"] + 5
-    #     return random.randrange(mgl, mgh)
 
     def take_damage(self, dmg):
         self.hp -= dmg
@@ -58,22 +54,23 @@ class Person:
     def reduce_mp(self, cost):
         self.mp -= cost
 
-    # def get_spell_name(self, i):
-    #     return self.magic[i]["name"]
-    #
-    # def get_spell_mp_cost(self, i):
-    #     return self.magic[i]["cost"]
-
     def choose_actions(self):
         index = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Actions" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "ACTIONS" + bcolors.ENDC)
         for item in self.action:
-            print(str(index) + ":" + item)
+            print("    " + str(index) + "." + item)
             index += 1
 
     def choose_magic(self):
         index = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Magic    MP Balance:" + str(self.get_mp()) + bcolors.ENDC)
+        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "MAGIC    MP Balance:" + str(self.get_mp()) + bcolors.ENDC)
         for spell in self.magic:
-            print(str(index) + ": " + spell.name, "(cost: ", str(spell.cost) + ")")
+            print("    " + str(index) + ". " + spell.name, "(cost: ", str(spell.cost) + ")")
+            index += 1
+
+    def choose_item(self):
+        index = 1
+        print("\n" + bcolors.OKGREEN + bcolors.BOLD + "ITEMS: " + bcolors.ENDC)
+        for item in self.items:
+            print("    " + str(index) + "." + item["item"].name, ":", item["item"].description, "(x" + str(item["quantity"]) + ")")
             index += 1
