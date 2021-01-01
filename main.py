@@ -2,20 +2,6 @@ from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
-# print("\n\n")
-# print("NAME                  HP                                    MP")
-# print("                      _________________________             __________")
-# print(bcolors.BOLD + "Valos:       460/460 |" + bcolors.OKGREEN + "██████████████" + bcolors.ENDC + bcolors.BOLD +
-#       "           |     65/65 |" + bcolors.OKBLUE + "████      " + bcolors.ENDC + "|")
-#
-# print("                      _________________________             __________")
-# print("Valos:       460/460 |                         |     65/65 |          |")
-#
-# print("                      _________________________             __________")
-# print("Valos:       460/460 |                         |     65/65 |          |")
-#
-# print("\n\n")
-
 # Create Black Magic
 fire = Spell("Fire", 10, 100, "black")
 thunder = Spell("Thunder", 10, 100, "black")
@@ -45,7 +31,7 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 player1 = Person("Valos:", 460, 65, 60, 34, player_spells, player_items)
 player2 = Person("Nick :", 460, 65, 60, 34, player_spells, player_items)
 player3 = Person("Robot:", 460, 65, 60, 34, player_spells, player_items)
-enemy = Person("Magus", 1200, 65, 45, 25, [], [])
+enemy = Person("Magus", 1200, 65, 145, 25, [], [])
 
 players = [player1, player2, player3]
 
@@ -59,11 +45,13 @@ while running:
     print(bcolors.BOLD + "NAME                 HP                                   MP" + bcolors.ENDC)
     print("------               -------------------------            ----------")
     for player in players:
-        player.get_stats()
+        player.get_player_stats()
+    print("\n")
+    enemy.get_enemy_stats()
     print("\n")
     for player in players:
         player.choose_actions()
-        choice = input("Choose actions: ")
+        choice = input("    Choose actions: ")
         index = int(choice) - 1
 
         if index == 0:
@@ -72,7 +60,7 @@ while running:
             print("You attacked for", dmg, "points of damage.")
         elif index == 1:
             player.choose_magic()
-            magic_choice = int(input("Choose magic: ")) - 1
+            magic_choice = int(input("    Choose magic: ")) - 1
 
             if magic_choice == -1:
                 continue
@@ -97,7 +85,7 @@ while running:
                 print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "points of damage" + bcolors.ENDC)
         elif index == 2:
             player.choose_item()
-            item_choice = int(input("Choose item: ")) - 1
+            item_choice = int(input("    Choose item: ")) - 1
 
             if item_choice == -1:
                 continue
