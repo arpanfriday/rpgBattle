@@ -77,6 +77,16 @@ class Person:
             print("        " + str(index) + "." + item["item"].name, ":", item["item"].description, "(x" + str(item["quantity"]) + ")")
             index += 1
 
+    def choose_target(self, enemies):
+        i = 1
+        print("\n" + bcolors.FAIL + bcolors.BOLD + "    TARGET: " + bcolors.ENDC)
+        for enemy in enemies:
+            if enemy.get_hp() != 0:
+                print("        " + str(i) + ". " + enemy.name)
+                i += 1
+        choice = int(input("    Choose target:")) - 1
+        return choice
+
     def get_player_stats(self):
         hp_bar = ""
         hp_bar_ticks = (self.hp / self.maxhp) * 100 / 4
@@ -124,7 +134,7 @@ class Person:
         else:
             current_mp = mp_string
 
-        print(bcolors.BOLD + self.name + "       " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC
+        print(bcolors.BOLD + self.name + ":       " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC
               + bcolors.BOLD + "|     " + current_mp + "|" + bcolors.OKBLUE + mp_bar + bcolors.ENDC +
               bcolors.BOLD + "|" + bcolors.ENDC)
 
@@ -152,5 +162,5 @@ class Person:
         else:
             current_hp = hp_string
 
-        print(bcolors.BOLD + self.name + "      " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC +
+        print(bcolors.BOLD + self.name + ":     " + current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC +
               bcolors.BOLD + "|" + bcolors.ENDC)
